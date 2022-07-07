@@ -9,20 +9,20 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "categories")
+@Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","products"})
+
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
     private int categoryId;
     @Column(name = "category_name")
     private String categoryName;
 
     @OneToMany(mappedBy = "category")
-    private List<Product> productList;
+    private List<Product> products;
 }

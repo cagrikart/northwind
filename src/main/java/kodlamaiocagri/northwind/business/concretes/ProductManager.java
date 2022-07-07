@@ -41,10 +41,12 @@ public class ProductManager implements ProductService {
     }
 
     @Override
-    public DataResults<Product> getByProductNameAndAndCategoryId(String productName, int categoryId) {
-        return new SuccessDataResult<Product>(this.productDao.getByProductNameAndAndCategory(productName,categoryId),"Data Listelendi");
-
+    public DataResults<Product> getByProductNameAndAndCategory(String productName, int categoryId) {
+        return new SuccessDataResult<Product>(this.productDao.getByProductNameAndCategory_CategoryId(productName,categoryId));
     }
+
+
+/*
 
     @Override
     public DataResults<List<Product>> getByProductNameOrCategoryId(String productName, int categoryId) {
@@ -72,5 +74,5 @@ public class ProductManager implements ProductService {
 
     }
 
-
+*/
 }
