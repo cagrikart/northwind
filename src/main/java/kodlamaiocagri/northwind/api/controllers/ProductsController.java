@@ -34,4 +34,9 @@ public class ProductsController {
     public Results add(@RequestBody  Product product) {
         return this.productService.add(product);
     }
+
+    @GetMapping("/getByProduct")
+    public DataResults<Product> getgetByProductName (@RequestParam String productName) {
+        return this.productService.getByProductName(productName);
+    }
 }

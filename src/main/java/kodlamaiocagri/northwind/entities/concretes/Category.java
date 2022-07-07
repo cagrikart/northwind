@@ -1,5 +1,7 @@
 package kodlamaiocagri.northwind.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "categories")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","products"})
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +23,6 @@ public class Category {
     @Column(name = "category_name")
     private String categoryName;
 
-    @OneToMany(mappedBy = "categories")
+    @OneToMany(mappedBy = "category")
     private List<Product> productList;
 }

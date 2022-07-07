@@ -9,17 +9,17 @@ import java.util.List;
 public interface ProductDao extends JpaRepository<Product,Integer> {
     Product getByProductName(String productName);
 
-    Product getByProductNameAndAndCategoryId(String productName , int categoryId); //  hem product name i hem de category ıd i getir
+    Product getByProductNameAndAndCategory(String productName , int categoryId); //  hem product name i hem de category ıd i getir
 
-    List<Product> getByProductNameOrCategoryId(String productName, int categoryId); // product name i ya da category name i getir
+    List<Product> getByProductNameOrCategory( String productName, int categoryId); // product name i ya da category name i getir
 
-    List<Product> getByCategoryIdIn(List<Integer> categories);
+    List<Product> getByCategoryIn(List<Integer> categories);
 
     List<Product> getByProductNameContains(String productName);
 
     List<Product> getByProductNameStartsWith(String productName);
 
-    @Query("From Product where  productName=:productName and categoryId=:categoryId")
+    @Query("From Product where  productName=:productName and  category.categoryId=:categoryId")
     List<Product> getByNameAndCategory(String productName,int categoryId);
 
 }
