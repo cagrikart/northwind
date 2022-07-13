@@ -1,11 +1,11 @@
 package kodlamaiocagri.northwind.api.controllers;
 
-import io.swagger.annotations.Api;
 import kodlamaiocagri.northwind.business.abstracts.ProductService;
 import kodlamaiocagri.northwind.core.utilities.results.DataResults;
 import kodlamaiocagri.northwind.core.utilities.results.Results;
 import kodlamaiocagri.northwind.core.utilities.results.SuccessDataResult;
 import kodlamaiocagri.northwind.entities.concretes.Product;
+import kodlamaiocagri.northwind.entities.dtos.ProductWithCategoryDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,12 +43,36 @@ public class ProductsController {
     }
 
     @GetMapping("/getByProductNameAndCategoryId")
-    public DataResults<Product> getByProductNameAndAndCategoryId(@RequestParam(name = "productname" )String productName,@RequestParam int categoryId) {
-        return this.productService.getByProductNameAndAndCategory(productName,categoryId);
+    public DataResults<Product> getByProductNameAndAndCategoryId(@RequestParam(required=false,name="productName") String productName,@RequestParam(required=false,name="categoryId") int categoryId) {
+        System.out.println(productName);
+        System.out.println(categoryId);
+        return this.productService.getByProductNameAndCategoryId(productName,categoryId);
     }
-/*
-   @GetMapping("/getByProductNameOrCategoryId")
-    public DataResults<List<Product>> getByProductNameOrCategoryId(@ RequestParam String productName,@RequestParam int categoryId) {
+    @GetMapping("/getByProductNameContains")
+    public DataResults<List<Product>> getByProductNameContains(@RequestParam(name="productName") String productName) {
+        return this.productService.getByProductNameContains(productName);
+    }
+    @GetMapping("/getAllByPage")
+    DataResults<List<Product>> getAll(int page,int sizeNo){
+        return this.productService.getAll(page,sizeNo);
+    }
+    @GetMapping("/getAllSorted")
+    public DataResults<List<Product>> getAllSorted() {
+        return  this.productService.getAllSorted();
+    }
+
+    @GetMapping("/getProductWithCategoryDetails")
+    DataResults<List<ProductWithCategoryDto>> getProductWithCategoryDetails(){
+        return this.productService.getProductWithCategoryDetails();
+    }
+
+
+
+
+    /* @GetMapping("/getByProductNameOrCategoryId")
+    public DataResults<List<Product>> getByProductNameOrCategoryId(@RequestParam String productName,@RequestParam int categoryId) {
+       System.out.println(productName);
+       System.out.println(categoryId);
         return this.productService.getByProductNameOrCategoryId(productName,categoryId);
     }
     @GetMapping("/getByCategoryIdIn")
@@ -56,10 +80,7 @@ public class ProductsController {
         return this.productService.getByCategoryIdIn(categories);
 
     }
-    @GetMapping("/getByProductNameContains")
-    public DataResults<List<Product>> getByProductNameContains(@RequestParam String productName) {
-        return this.productService.getByProductNameContains(productName);
-    }
+
 
     @GetMapping("/getByProductNameStartsWith")
     public DataResults<List<Product>> getByProductNameStartsWith(@RequestParam String productName) {
